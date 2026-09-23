@@ -1,0 +1,11 @@
+.qty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-weight: bold;
+    margin: 0 10px;
+    font-size: 1.1rem;
+  }
+}
