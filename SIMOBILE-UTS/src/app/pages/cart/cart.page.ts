@@ -80,9 +80,8 @@ export class CartPage {
     this.cartItems.forEach(item => {
       const product = this.productService.getProductById(item.product.id);
       if (product) {
-        this.productService.updateProduct({
-          ...product,
-          stock: product.stock - item.quantity
+        this.productService.updateProduct(product.id, {
+          ...product, stock: product.stock - item.quantity
         });
       }
     });

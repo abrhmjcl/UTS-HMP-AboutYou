@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TransactionService } from '../../services/transaction.service';
+import { Transaction } from '../../models/transaction.model';
 
 @Component({
   selector: 'app-transaction-history',
@@ -6,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transaction-history.page.scss'],
   standalone: false,
 })
-export class TransactionHistoryPage implements OnInit {
+export class TransactionHistoryPage {
+  transactions: Transaction[] = [];
 
-  constructor() { }
+  constructor(private transactionService: TransactionService) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.transactions = this.transactionService.getAllTransactions();
   }
-
 }

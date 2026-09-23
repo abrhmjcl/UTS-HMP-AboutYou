@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-empty-state',
@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./empty-state.component.scss'],
   standalone: false,
 })
-export class EmptyStateComponent  implements OnInit {
+export class EmptyStateComponent {
+  @Input() icon: string = 'cart-outline';
+  @Input() title: string = 'Tidak ada data';
+  @Input() message: string = 'Belum ada data untuk ditampilkan';
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  constructor() {}
 }

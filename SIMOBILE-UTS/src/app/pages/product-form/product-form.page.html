@@ -1,12 +1,80 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/tabs/products"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Form Produk</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/products"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEditMode ? 'Edit Produk' : 'Tambah Produk Baru' }}</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <p>diisi Person 2</p>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <ion-list lines="full">
+      
+      
+      <ion-item>
+        <ion-label position="stacked">Nama Produk <span class="text-danger">*</span></ion-label>
+        <ion-input formControlName="name" placeholder="Misal: Beras Premium 5kg" type="text"></ion-input>
+      </ion-item>
+      <div class="error-message" *ngIf="f['name'].touched && f['name'].invalid">
+        <span *ngIf="f['name'].errors?.['required']">Nama produk wajib diisi.</span>
+        <span *ngIf="f['name'].errors?.['minlength']">Nama produk minimal 2 karakter.</span>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Kategori <span class="text-danger">*</span></ion-label>
+        <ion-select formControlName="category" placeholder="Pilih Kategori">
+          <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="error-message" *ngIf="f['category'].touched && f['category'].invalid">
+        <span *ngIf="f['category'].errors?.['required']">Kategori wajib dipilih.</span>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Harga Beli (Rp) <span class="text-danger">*</span></ion-label>
+        <ion-input formControlName="purchasePrice" type="number" placeholder="0"></ion-input>
+      </ion-item>
+      <div class="error-message" *ngIf="f['purchasePrice'].touched && f['purchasePrice'].invalid">
+        <span *ngIf="f['purchasePrice'].errors?.['required']">Harga beli wajib diisi.</span>
+        <span *ngIf="f['purchasePrice'].errors?.['min']">Harga tidak boleh kurang dari 1.</span>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Harga Jual (Rp) <span class="text-danger">*</span></ion-label>
+        <ion-input formControlName="sellingPrice" type="number" placeholder="0"></ion-input>
+      </ion-item>
+      <div class="error-message" *ngIf="f['sellingPrice'].touched && f['sellingPrice'].invalid">
+        <span *ngIf="f['sellingPrice'].errors?.['required']">Harga jual wajib diisi.</span>
+        <span *ngIf="f['sellingPrice'].errors?.['min']">Harga tidak boleh kurang dari 1.</span>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Jumlah Stok <span class="text-danger">*</span></ion-label>
+        <ion-input formControlName="stock" type="number" placeholder="0"></ion-input>
+      </ion-item>
+      <div class="error-message" *ngIf="f['stock'].touched && f['stock'].invalid">
+        <span *ngIf="f['stock'].errors?.['required']">Stok wajib diisi.</span>
+        <span *ngIf="f['stock'].errors?.['min']">Stok minimal 0.</span>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Deskripsi Singkat</ion-label>
+        <ion-textarea formControlName="description" placeholder="Penjelasan tentang produk..." [autoGrow]="true"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">URL Gambar (Opsional)</ion-label>
+        <ion-input formControlName="imageUrl" type="url" placeholder="https://..."></ion-input>
+      </ion-item>
+      
+    </ion-list>
+
+    <div class="ion-margin-top ion-padding-top">
+      <ion-button expand="block" type="submit" color="primary" [disabled]="productForm.invalid">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Simpan Produk
+      </ion-button>
+    </div>
+  </form>
 </ion-content>

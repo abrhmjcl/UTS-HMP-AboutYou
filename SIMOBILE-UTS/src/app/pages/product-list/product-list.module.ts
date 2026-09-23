@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular/lazy';
 import { ProductListPageRoutingModule } from './product-list-routing.module';
 
 import { ProductListPage } from './product-list.page';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProductListPageRoutingModule
+    ProductListPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ProductListPage]
 })

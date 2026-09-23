@@ -1,11 +1,66 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Dashboard</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Dashboard</ion-title>
     </ion-toolbar>
-</ion-header>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-title>Selamat Datang!</ion-card-title>
+        <ion-card-subtitle>Toko Makmur Jaya</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Kelola toko Anda dengan mudah menggunakan SIMOBILE.</p>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card class="stat-card">
+            <ion-card-content class="ion-text-center">
+              <ion-icon name="cube-outline" color="primary" style="font-size: 2rem;"></ion-icon>
+              <h2>{{ totalProducts }}</h2>
+              <p>Total Produk</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="stat-card">
+            <ion-card-content class="ion-text-center">
+              <ion-icon name="receipt-outline" color="secondary" style="font-size: 2rem;"></ion-icon>
+              <h2>{{ todayTransactionCount }}</h2>
+              <p>Transaksi Hari Ini</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card class="stat-card">
+            <ion-card-content class="ion-text-center">
+              <ion-icon name="cash-outline" color="success" style="font-size: 2rem;"></ion-icon>
+              <h2>Rp {{ todaySales | number }}</h2>
+              <p>Total Penjualan</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card class="stat-card">
+            <ion-card-content class="ion-text-center">
+              <ion-icon name="trophy-outline" color="warning" style="font-size: 2rem;"></ion-icon>
+              <h2>{{ bestSelling?.productName || '-' }}</h2>
+              <p>Produk Terlaris ({{ bestSelling?.quantity || 0 }} terjual)</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
 
 <ion-content class="ion-padding">
     <p>diisi Person 3</p>

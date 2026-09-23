@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-custom-header',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./custom-header.component.scss'],
   standalone: false,
 })
-export class CustomHeaderComponent  implements OnInit {
+export class CustomHeaderComponent {
+  @Input() title: string = 'SIMOBILE';
+  @Input() showMenuButton: boolean = true;
+  @Input() showBackButton: boolean = false;
+  @Input() backHref: string = '/tabs/dashboard';
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  constructor() {}
 }

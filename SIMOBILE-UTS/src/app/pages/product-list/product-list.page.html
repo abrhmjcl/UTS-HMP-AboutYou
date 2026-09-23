@@ -1,12 +1,41 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Produk</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Produk</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/tabs/product-form">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <ion-toolbar color="primary">
+    <ion-searchbar 
+      placeholder="Cari nama atau kategori..." 
+      [(ngModel)]="searchTerm" 
+      (ionInput)="filterProducts()">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <p>diisi Person 2</p>
+  <ion-grid *ngIf="filteredProducts.length > 0">
+    <ion-row>
+      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let product of filteredProducts">
+        <app-product-card 
+          [product]="product" 
+          (addToCartEvent)="handleAddToCart($event)"
+          (viewDetailEvent)="handleViewDetail($event)">
+        </app-product-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="empty-state-container" *ngIf="filteredProducts.length === 0">
+    <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+    <h3>Produk tidak ditemukan</h3>
+    <p>Coba gunakan kata kunci pencarian yang lain.</p>
+  </div>
 </ion-content>

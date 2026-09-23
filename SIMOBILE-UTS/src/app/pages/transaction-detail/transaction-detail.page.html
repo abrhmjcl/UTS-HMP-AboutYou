@@ -1,11 +1,46 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/transaction-history"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Detail Transaksi</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/transactions"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Detail Transaksi</ion-title>
     </ion-toolbar>
-</ion-header>
+  </ion-header>
+  
+  <ion-content class="ion-padding" *ngIf="transaction">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Transaksi #{{ transaction.id }}</ion-card-title>
+        <ion-card-subtitle>{{ transaction.date | date:'dd MMMM yyyy, HH:mm' }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Daftar Item</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let item of transaction.items">
+        <ion-label>
+            <h3>{{ item.product.name }}</h3>
+            <p>{{ item.quantity }} x Rp {{ item.product.sellingPrice | number }}</p>
+        </ion-label>
+        <ion-note slot="end">
+            Rp {{ item.subtotal | number }}
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  
+    <ion-card class="total-card">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col><strong>Total Pembayaran</strong></ion-col>
+            <ion-col class="ion-text-end"><strong>Rp {{ transaction.totalAmount | number }}</strong></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
 
 <ion-content class="ion-padding">
     <p>diisi Person 3</p>

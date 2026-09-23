@@ -1,0 +1,17 @@
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 12px;
+  padding: 4px 16px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.text-danger {
+  color: var(--ion-color-danger);
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 8px;
+}

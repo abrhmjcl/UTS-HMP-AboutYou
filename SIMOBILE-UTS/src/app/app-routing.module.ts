@@ -44,6 +44,14 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then(m => m.AboutPageModule)
   },
+  {
+    path: 'animations',
+    loadChildren: () => import('./animations/animations.module').then( m => m.AnimationsPageModule)
+  },
+  {
+    path: 'animations',
+    loadChildren: () => import('./animations/animations.module').then( m => m.AnimationsPageModule)
+  },
 ];
 
 @NgModule({

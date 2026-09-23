@@ -1,3 +1,29 @@
-<p>
-  product-card works!
-</p>
+<ion-card class="product-card" (click)="onViewDetail()">
+  <div class="image-container">
+    <ion-img [src]="defaultImage" alt="{{ product.name }}"></ion-img>
+  </div>
+  
+  <ion-card-header>
+    <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+    <ion-card-title>{{ product.name }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="price-stock">
+      <span class="price">Rp {{ product.sellingPrice | number:'1.0-0' }}</span>
+      <span class="stock" [ngStyle]="{'color': product.stock > 0 ? 'var(--ion-color-success)' : 'var(--ion-color-danger)'}">
+        Sisa: {{ product.stock }}
+      </span>
+    </div>
+
+    <ion-button 
+      expand="block" 
+      color="primary" 
+      class="add-to-cart-btn"
+      [disabled]="product.stock === 0"
+      (click)="onAddToCart($event)">
+      <ion-icon name="cart-outline" slot="start"></ion-icon>
+      {{ product.stock === 0 ? 'Stok Habis' : 'Tambah ke Keranjang' }}
+    </ion-button>
+  </ion-card-content>
+</ion-card>

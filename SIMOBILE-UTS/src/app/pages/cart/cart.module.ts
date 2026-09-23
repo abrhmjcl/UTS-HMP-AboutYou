@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular/lazy';
 
 import { CartPageRoutingModule } from './cart-routing.module';
 import { CartPage } from './cart.page';
-// Import jika ada ComponentsModule: import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
@@ -13,7 +12,6 @@ import { CartPage } from './cart.page';
     FormsModule,
     IonicModule,
     CartPageRoutingModule
-    // ComponentsModule
   ],
   declarations: [CartPage]
 })

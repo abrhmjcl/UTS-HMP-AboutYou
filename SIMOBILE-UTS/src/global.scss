@@ -1,45 +1,49 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-
 /* Core CSS required for Ionic components to work properly */
-
 @import "@ionic/angular/css/core.css";
-
 /* Basic CSS for apps built with Ionic */
-
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
-
 /* Optional CSS utils that can be commented out */
-
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+@import "@ionic/angular/css/display.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* ═══════════════════════════════════════
+   CUSTOM GLOBAL STYLES (PERSON 4)
+═══════════════════════════════════════ */
 
+/* Utilities */
+.text-bold { font-weight: bold; }
+.text-semibold { font-weight: 600; }
+.text-medium { font-weight: 500; }
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+.text-primary { color: var(--ion-color-primary); }
+.text-danger { color: var(--ion-color-danger); }
+.text-success { color: var(--ion-color-success); }
+.text-muted { color: var(--ion-color-medium); }
 
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
 
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+/* Custom Card Global Styling */
+ion-card.custom-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
 
-// @import "@ionic/angular/css/palettes/dark.system.css";
+/* Custom Button Styling */
+ion-button.rounded-btn {
+  --border-radius: 50px;
+}
+
+/* Page Background Fix for Dark Mode */
+ion-content {
+  --background: var(--ion-background-color);
+}

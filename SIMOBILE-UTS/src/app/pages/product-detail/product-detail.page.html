@@ -1,12 +1,80 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/tabs/products"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Detail Produk</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/products"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Produk</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="editProduct()">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-    <p>diisi Person 2</p>
+<ion-content class="ion-padding" *ngIf="product">
+  <div class="product-image-container">
+    <img [src]="product.imageUrl || 'assets/images/default-product.png'" alt="{{ product.name }}" class="product-image">
+  </div>
+  
+  <div class="product-header">
+    <ion-chip color="tertiary">
+      <ion-label>{{ product.category }}</ion-label>
+    </ion-chip>
+    <h2>{{ product.name }}</h2>
+  </div>
+  
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-subtitle>Informasi Harga & Stok</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label color="medium">Harga Beli</ion-label>
+          <ion-note slot="end">Rp {{ product.purchasePrice | number }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium">Harga Jual</ion-label>
+          <ion-note slot="end" color="primary"><strong>Rp {{ product.sellingPrice | number }}</strong></ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium">Estimasi Profit</ion-label>
+          <ion-note slot="end" color="success">Rp {{ profit | number }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium">Sisa Stok</ion-label>
+          <ion-badge slot="end" [color]="product.stock > 0 ? 'success' : 'danger'">
+            {{ product.stock > 0 ? product.stock + ' Pcs' : 'Habis' }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-subtitle>Deskripsi Produk</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ product.description || 'Tidak ada deskripsi' }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+<ion-content *ngIf="!product" class="ion-padding">
+  <div class="not-found-container">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <h3>Produk tidak ditemukan!</h3>
+    <ion-button routerLink="/tabs/products">Kembali</ion-button>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="product">
+  <ion-toolbar class="ion-padding-horizontal">
+    <ion-button expand="block" color="primary" (click)="addToCart()" [disabled]="product.stock === 0">
+      <ion-icon name="cart-outline" slot="start"></ion-icon>
+      Tambah ke Keranjang
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

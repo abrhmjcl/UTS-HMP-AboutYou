@@ -1,11 +1,35 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Riwayat Transaksi</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Riwayat Transaksi</ion-title>
     </ion-toolbar>
-</ion-header>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list *ngIf="transactions.length > 0; else emptyState">
+      <ion-item *ngFor="let t of transactions" [routerLink]="['/transaction-detail', t.id]" detail>
+        <ion-icon name="receipt-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h2>Transaksi #{{ t.id }}</h2>
+          <p>{{ t.date | date:'dd MMM yyyy, HH:mm' }}</p>
+        </ion-label>
+        <ion-note slot="end">
+          <p style="font-weight: bold;">Rp {{ t.totalAmount | number }}</p>
+          <p>{{ t.items.length }} item</p>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  
+    <ng-template #emptyState>
+      <app-empty-state
+        icon="receipt-outline"
+        title="Belum Ada Transaksi"
+        message="Transaksi yang sudah dikonfirmasi akan muncul di sini."
+      ></app-empty-state>
+    </ng-template>
+  </ion-content>
 
 <ion-content class="ion-padding">
     <p>diisi Person 3</p>
