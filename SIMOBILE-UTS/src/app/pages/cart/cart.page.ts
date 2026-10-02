@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
+=======
+import { Component } from '@angular/core';
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular/lazy';
 import { CartService } from '../../services/cart.service';
@@ -12,7 +16,11 @@ import { CartItem } from '../../models/cart-item.model';
   styleUrls: ['./cart.page.scss'],
   standalone: false,
 })
+<<<<<<< HEAD
 export class CartPage implements OnInit {
+=======
+export class CartPage {
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
   cartItems: CartItem[] = [];
   cartTotal: number = 0;
 
@@ -22,6 +30,7 @@ export class CartPage implements OnInit {
     private transactionService: TransactionService,
     private router: Router,
     private alertController: AlertController
+<<<<<<< HEAD
   ) {}
 
   ngOnInit() {
@@ -34,6 +43,16 @@ export class CartPage implements OnInit {
 
   loadCart() {
     this.cartItems = [...this.cartService.getCartItems()];
+=======
+  ) { }
+
+  ionViewWillEnter() {
+    this.loadCart();
+  }
+
+  loadCart() {
+    this.cartItems = this.cartService.getCartItems();
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
     this.cartTotal = this.cartService.getCartTotal();
   }
 
@@ -81,18 +100,32 @@ export class CartPage implements OnInit {
 
   processCheckout() {
     const transaction = this.transactionService.createTransaction(this.cartItems, this.cartTotal);
+<<<<<<< HEAD
+=======
+
+    // Update stok produk
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
     this.cartItems.forEach(item => {
       const product = this.productService.getProductById(item.product.id);
       if (product) {
         this.productService.updateProduct(product.id, {
+<<<<<<< HEAD
           ...product, stock: product.stock - item.quantity
+=======
+          stock: product.stock - item.quantity
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
         });
       }
     });
 
     this.cartService.clearCart();
     this.loadCart();
+<<<<<<< HEAD
   
+=======
+
+    // Arahkan ke riwayat transaksi (Tab 3: Transaksi)
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
     this.router.navigate(['/tabs/transactions']);
   }
 }

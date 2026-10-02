@@ -3,7 +3,11 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.models';
+<<<<<<< HEAD
 import { AnimationController, ToastController } from '@ionic/angular/lazy';
+=======
+import { AnimationController } from '@ionic/angular/lazy';
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
 import { fadeInProductsAnimation } from '../../animations/product-fade-in.animation';
 
 @Component({
@@ -21,8 +25,12 @@ export class ProductListPage implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private router: Router,
+<<<<<<< HEAD
     private animationCtrl: AnimationController,
     private toastCtrl: ToastController
+=======
+    private animationCtrl: AnimationController
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
   ) {}
 
   ngOnInit() {
@@ -51,6 +59,7 @@ export class ProductListPage implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   async handleAddToCart(product: Product) {
     this.cartService.addToCart(product);
     const toast = await this.toastCtrl.create({
@@ -60,6 +69,10 @@ export class ProductListPage implements OnInit {
       position: 'top'
     });
     await toast.present();
+=======
+  handleAddToCart(product: Product) {
+    this.cartService.addToCart(product);
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
   }
 
   handleViewDetail(productId: number) {
@@ -87,4 +100,8 @@ export class ProductListPage implements OnInit {
   ionViewDidEnter() {
     this.fadeInProducts();
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

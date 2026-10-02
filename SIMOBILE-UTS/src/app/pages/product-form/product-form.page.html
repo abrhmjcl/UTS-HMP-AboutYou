@@ -11,7 +11,11 @@
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <ion-list lines="full">
       
+<<<<<<< HEAD
       
+=======
+      <!-- Nama Produk -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">Nama Produk <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="name" placeholder="Misal: Beras Premium 5kg" type="text"></ion-input>
@@ -21,6 +25,10 @@
         <span *ngIf="f['name'].errors?.['minlength']">Nama produk minimal 2 karakter.</span>
       </div>
 
+<<<<<<< HEAD
+=======
+      <!-- Kategori -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">Kategori <span class="text-danger">*</span></ion-label>
         <ion-select formControlName="category" placeholder="Pilih Kategori">
@@ -31,6 +39,10 @@
         <span *ngIf="f['category'].errors?.['required']">Kategori wajib dipilih.</span>
       </div>
 
+<<<<<<< HEAD
+=======
+      <!-- Harga Beli -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">Harga Beli (Rp) <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="purchasePrice" type="number" placeholder="0"></ion-input>
@@ -40,6 +52,10 @@
         <span *ngIf="f['purchasePrice'].errors?.['min']">Harga tidak boleh kurang dari 1.</span>
       </div>
 
+<<<<<<< HEAD
+=======
+      <!-- Harga Jual -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">Harga Jual (Rp) <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="sellingPrice" type="number" placeholder="0"></ion-input>
@@ -49,6 +65,10 @@
         <span *ngIf="f['sellingPrice'].errors?.['min']">Harga tidak boleh kurang dari 1.</span>
       </div>
 
+<<<<<<< HEAD
+=======
+      <!-- Stok -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">Jumlah Stok <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="stock" type="number" placeholder="0"></ion-input>
@@ -58,11 +78,19 @@
         <span *ngIf="f['stock'].errors?.['min']">Stok minimal 0.</span>
       </div>
 
+<<<<<<< HEAD
+=======
+      <!-- Deskripsi -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">Deskripsi Singkat</ion-label>
         <ion-textarea formControlName="description" placeholder="Penjelasan tentang produk..." [autoGrow]="true"></ion-textarea>
       </ion-item>
 
+<<<<<<< HEAD
+=======
+      <!-- URL Gambar -->
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
       <ion-item>
         <ion-label position="stacked">URL Gambar (Opsional)</ion-label>
         <ion-input formControlName="imageUrl" type="url" placeholder="https://..."></ion-input>

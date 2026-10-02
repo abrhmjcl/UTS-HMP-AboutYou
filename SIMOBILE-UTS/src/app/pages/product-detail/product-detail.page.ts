@@ -34,6 +34,7 @@ export class ProductDetailPage implements OnInit {
   }
 
   addToCart() {
+<<<<<<< HEAD
   if (this.product && this.product.stock > 0) {
     this.cartService.addToCart(this.product);
     this.router.navigate(['/cart']);          
@@ -46,3 +47,17 @@ editProduct() {
   }
 }
 }
+=======
+    if (this.product && this.product.stock > 0) {
+      this.cartService.addToCart(this.product);
+      this.router.navigate(['/tabs/cart']);
+    }
+  }
+
+  editProduct() {
+    if (this.product) {
+      this.router.navigate(['/tabs/product-form'], { queryParams: { id: this.product.id } });
+    }
+  }
+}
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

@@ -63,6 +63,7 @@ export class ProductFormPage implements OnInit {
     }
   }
 
+<<<<<<< HEAD
  onSubmit() {
   if (this.productForm.invalid) {
     this.productForm.markAllAsTouched();
@@ -88,3 +89,32 @@ export class ProductFormPage implements OnInit {
   this.router.navigate(['/tabs/products']);
 }
 }
+=======
+  onSubmit() {
+    if (this.productForm.invalid) {
+      this.productForm.markAllAsTouched();
+      return;
+    }
+
+    const formData = this.productForm.value;
+    
+    if (this.isEditMode && this.productIdToEdit) {
+      const updatedProduct: Product = {
+        id: this.productIdToEdit,
+        ...formData
+      };
+      // this.productService.updateProduct(updatedProduct);
+      console.log('Update Product:', updatedProduct);
+    } else {
+      const newProduct: Product = {
+        id: new Date().getTime(),
+        ...formData
+      };
+      // this.productService.addProduct(newProduct);
+      console.log('Add Product:', newProduct);
+    }
+
+    this.router.navigate(['/tabs/products']);
+  }
+}
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

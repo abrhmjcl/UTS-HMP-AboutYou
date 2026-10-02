@@ -13,4 +13,8 @@ export const addToCartBounceAnimation = (animationCtrl: AnimationController, ele
     ]);
   
   anim.play();
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

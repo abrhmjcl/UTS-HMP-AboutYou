@@ -21,7 +21,11 @@ export class ProductCardComponent {
   }
 
   onAddToCart(event: Event) {
+<<<<<<< HEAD
     event.stopPropagation();
+=======
+    event.stopPropagation(); // Mencegah klik kartu saat tombol diklik
+>>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
     this.addToCartEvent.emit(this.product);
   }
 
