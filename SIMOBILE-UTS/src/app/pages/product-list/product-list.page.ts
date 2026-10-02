@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.models';
-import { AnimationController } from '@ionic/angular/lazy';
+import { AnimationController, ToastController } from '@ionic/angular/lazy';
 import { fadeInProductsAnimation } from '../../animations/product-fade-in.animation';
 
 @Component({
@@ -21,7 +21,8 @@ export class ProductListPage implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private router: Router,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private toastCtrl: ToastController
   ) {}
 
   ngOnInit() {
@@ -50,8 +51,15 @@ export class ProductListPage implements OnInit {
     }
   }
 
-  handleAddToCart(product: Product) {
+  async handleAddToCart(product: Product) {
     this.cartService.addToCart(product);
+    const toast = await this.toastCtrl.create({
+      message: `${product.name} ditambahkan ke keranjang`,
+      duration: 2000,
+      color: 'success',
+      position: 'top'
+    });
+    await toast.present();
   }
 
   handleViewDetail(productId: number) {

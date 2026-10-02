@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular/lazy';
 import { CartService } from '../../services/cart.service';
@@ -12,7 +12,7 @@ import { CartItem } from '../../models/cart-item.model';
   styleUrls: ['./cart.page.scss'],
   standalone: false,
 })
-export class CartPage {
+export class CartPage implements OnInit {
   cartItems: CartItem[] = [];
   cartTotal: number = 0;
 
@@ -24,12 +24,16 @@ export class CartPage {
     private alertController: AlertController
   ) {}
 
+  ngOnInit() {
+    this.loadCart();
+  }
+
   ionViewWillEnter() {
     this.loadCart();
   }
 
   loadCart() {
-    this.cartItems = this.cartService.getCartItems();
+    this.cartItems = [...this.cartService.getCartItems()];
     this.cartTotal = this.cartService.getCartTotal();
   }
 
