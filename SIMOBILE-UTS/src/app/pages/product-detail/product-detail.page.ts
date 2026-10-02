@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { Product } from '../../models/product.models';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -26,7 +26,7 @@ export class ProductDetailPage implements OnInit {
     if (idParam) {
       const id = parseInt(idParam, 10);
       this.product = this.productService.getProductById(id);
-      
+
       if (this.product) {
         this.profit = this.product.sellingPrice - this.product.purchasePrice;
       }
@@ -34,30 +34,15 @@ export class ProductDetailPage implements OnInit {
   }
 
   addToCart() {
-<<<<<<< HEAD
-  if (this.product && this.product.stock > 0) {
-    this.cartService.addToCart(this.product);
-    this.router.navigate(['/cart']);          
-  }
-}
-
-editProduct() {
-  if (this.product) {
-    this.router.navigate(['/product-form'], { queryParams: { id: this.product.id } });
-  }
-}
-}
-=======
     if (this.product && this.product.stock > 0) {
       this.cartService.addToCart(this.product);
-      this.router.navigate(['/tabs/cart']);
+      this.router.navigate(['/cart']);
     }
   }
 
   editProduct() {
     if (this.product) {
-      this.router.navigate(['/tabs/product-form'], { queryParams: { id: this.product.id } });
+      this.router.navigate(['/product-form'], { queryParams: { id: this.product.id } });
     }
   }
 }
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

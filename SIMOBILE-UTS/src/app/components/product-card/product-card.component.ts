@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../models/product.models';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-card',
@@ -12,20 +12,16 @@ export class ProductCardComponent {
   @Output() addToCartEvent = new EventEmitter<Product>();
   @Output() viewDetailEvent = new EventEmitter<number>();
 
-  constructor() {}
+  constructor() { }
 
   get defaultImage(): string {
-    return this.product.imageUrl && this.product.imageUrl.trim() !== '' 
-      ? this.product.imageUrl 
+    return this.product.imageUrl && this.product.imageUrl.trim() !== ''
+      ? this.product.imageUrl
       : 'assets/images/default-product.png';
   }
 
   onAddToCart(event: Event) {
-<<<<<<< HEAD
     event.stopPropagation();
-=======
-    event.stopPropagation(); // Mencegah klik kartu saat tombol diklik
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
     this.addToCartEvent.emit(this.product);
   }
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product.models';
+import { Product } from '../models/product.model';
 import { CartItem } from '../models/cart-item.model';
 
-@Injectable ({
+@Injectable({
     providedIn: 'root'
 })
 export class CartService {
@@ -30,7 +30,7 @@ export class CartService {
         if (existingItem) {
             existingItem.quantity += quantity;
             existingItem.subtotal = existingItem.product.sellingPrice * existingItem.quantity;
-        }else{
+        } else {
             this.cartItems.push({
                 product: product,
                 quantity: quantity,
@@ -44,7 +44,7 @@ export class CartService {
         if (item) {
             if (quantity <= 0) {
                 this.removeFromCart(productId);
-            }else{
+            } else {
                 item.quantity = quantity;
                 item.subtotal = item.product.sellingPrice * quantity;
             }

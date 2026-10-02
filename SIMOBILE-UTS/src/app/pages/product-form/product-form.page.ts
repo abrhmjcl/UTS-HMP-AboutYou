@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.models';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -14,7 +14,7 @@ export class ProductFormPage implements OnInit {
   productForm!: FormGroup;
   isEditMode: boolean = false;
   productIdToEdit: number | null = null;
-  
+
   categories: string[] = ['Makanan Pokok', 'Makanan Instan', 'Minuman', 'Bumbu Dapur', 'Kebutuhan Rumah', 'Snack', 'Lainnya'];
 
   constructor(
@@ -63,33 +63,6 @@ export class ProductFormPage implements OnInit {
     }
   }
 
-<<<<<<< HEAD
- onSubmit() {
-  if (this.productForm.invalid) {
-    this.productForm.markAllAsTouched();
-    return;
-  }
-
-  const formData = this.productForm.value;
-  
-  if (this.isEditMode && this.productIdToEdit) {
-    const updatedProduct: Product = {
-      id: this.productIdToEdit,
-      ...formData
-    };
-    console.log('Update Product:', updatedProduct);
-  } else {
-    const newProduct: Product = {
-      id: new Date().getTime(),
-      ...formData
-    };
-    console.log('Add Product:', newProduct);          
-  }
-
-  this.router.navigate(['/tabs/products']);
-}
-}
-=======
   onSubmit() {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
@@ -97,24 +70,21 @@ export class ProductFormPage implements OnInit {
     }
 
     const formData = this.productForm.value;
-    
+
     if (this.isEditMode && this.productIdToEdit) {
       const updatedProduct: Product = {
         id: this.productIdToEdit,
         ...formData
       };
-      // this.productService.updateProduct(updatedProduct);
       console.log('Update Product:', updatedProduct);
     } else {
       const newProduct: Product = {
         id: new Date().getTime(),
         ...formData
       };
-      // this.productService.addProduct(newProduct);
       console.log('Add Product:', newProduct);
     }
 
     this.router.navigate(['/tabs/products']);
   }
 }
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

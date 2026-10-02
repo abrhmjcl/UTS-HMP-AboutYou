@@ -7,9 +7,12 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class AppComponent {
-  constructor() {}
+
+  constructor() {
+    document.body.classList.add('dark');
+  }
 
   logout() {
-    console.log('Logout clicked');
+    window.location.reload();
   }
 }

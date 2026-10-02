@@ -10,4 +10,4 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [CommonModule, FormsModule, IonicModule, TransactionHistoryPageRoutingModule, ComponentsModule],
   declarations: [TransactionHistoryPage]
 })
-export class TransactionHistoryPageModule {}
+export class TransactionHistoryPageModule { }

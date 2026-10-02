@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { Product } from '../../models/product.models';
-<<<<<<< HEAD
+import { Product } from '../../models/product.model';
 import { AnimationController, ToastController } from '@ionic/angular/lazy';
-=======
-import { AnimationController } from '@ionic/angular/lazy';
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
 import { fadeInProductsAnimation } from '../../animations/product-fade-in.animation';
 
 @Component({
@@ -25,13 +21,9 @@ export class ProductListPage implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private router: Router,
-<<<<<<< HEAD
     private animationCtrl: AnimationController,
     private toastCtrl: ToastController
-=======
-    private animationCtrl: AnimationController
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadProducts();
@@ -52,14 +44,13 @@ export class ProductListPage implements OnInit {
       this.filteredProducts = [...this.products];
     } else {
       const term = this.searchTerm.toLowerCase();
-      this.filteredProducts = this.products.filter(p => 
-        p.name.toLowerCase().includes(term) || 
+      this.filteredProducts = this.products.filter(p =>
+        p.name.toLowerCase().includes(term) ||
         p.category.toLowerCase().includes(term)
       );
     }
   }
 
-<<<<<<< HEAD
   async handleAddToCart(product: Product) {
     this.cartService.addToCart(product);
     const toast = await this.toastCtrl.create({
@@ -69,18 +60,14 @@ export class ProductListPage implements OnInit {
       position: 'top'
     });
     await toast.present();
-=======
-  handleAddToCart(product: Product) {
-    this.cartService.addToCart(product);
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c
   }
 
   handleViewDetail(productId: number) {
     this.router.navigate(['/tabs/product-detail', productId]);
   }
 
- 
-  
+
+
   fadeInProducts() {
     const cards = document.querySelectorAll('.product-card');
     cards.forEach((card, index) => {
@@ -100,8 +87,4 @@ export class ProductListPage implements OnInit {
   ionViewDidEnter() {
     this.fadeInProducts();
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> ba3dc42c7da461b14181b70dcc15d3b7d6e20f2c

@@ -7,19 +7,23 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class ProfilePage implements OnInit {
-  
+
   owner = {
-    name: 'Budi Santoso',
-    role: 'Pemilik Toko',
-    phone: '0812-3456-7890',
-    email: 'budi.santoso@tokomakmur.com',
-    address: 'Jl. Merdeka No.45, Jakarta',
-    joinDate: 'Januari 2023',
+    name: 'Ibu Marni',
+    role: 'Pemilik Toko Makmur Jaya',
+    phone: '0812-9988-7766',
+    email: 'marni@tokomakmurjaya.com',
+    address: 'Jl. Rungkut Madya No. 1, Surabaya',
+    joinDate: 'Maret 2023',
     photoUrl: 'assets/images/profile-pic.png'
   };
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    window.location.reload();
   }
 }
