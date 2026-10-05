@@ -1,3 +1,27 @@
+ion-content {
+  --background: var(--ion-background-color, #121212);
+}
+
+ion-item {
+  --background: var(--ion-card-background, #1e1e1e);
+  --color: var(--ion-text-color, #e0e0e0);
+  --border-color: var(--ion-border-color, #333);
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+ion-item-sliding {
+  margin-bottom: 8px;
+}
+
+// Subtotal text styling
+ion-note {
+  color: var(--ion-color-secondary) !important;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+// Quantity controls
 .qty-controls {
   display: flex;
   align-items: center;
@@ -7,5 +31,27 @@
     font-weight: bold;
     margin: 0 10px;
     font-size: 1.1rem;
+    color: var(--ion-text-color);
+  }
+}
+
+// Total bar at bottom
+.total-bar {
+  --background: var(--ion-color-primary);
+  --color: white;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+// Empty cart state
+.empty-cart {
+  text-align: center;
+  margin-top: 40%;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
   }
 }
