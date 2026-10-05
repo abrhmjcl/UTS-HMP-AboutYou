@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular/lazy';
 
 @Component({
   selector: 'app-profile',
@@ -18,12 +19,25 @@ export class ProfilePage implements OnInit {
     photoUrl: 'assets/images/profile-pic.png'
   };
 
-  constructor() { }
+  constructor(private alertController: AlertController) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  logout() {
-    window.location.reload();
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi Logout',
+      message: 'Apakah Anda yakin ingin keluar dari aplikasi?',
+      buttons: [
+        { text: 'Batal', role: 'cancel' },
+        {
+          text: 'Keluar',
+          role: 'destructive',
+          handler: () => {
+            window.location.reload();   // Reset seluruh app
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

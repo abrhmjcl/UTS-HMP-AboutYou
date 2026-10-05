@@ -20,10 +20,14 @@ export class DashboardPage {
   ) {}
 
   ionViewWillEnter() {
+    // FIX: getAllProducts() bukan getProducts()
     this.totalProducts = this.productService.getAllProducts().length;
+
     const todayTransactions = this.transactionService.getTodayTransactions();
     this.todayTransactionCount = todayTransactions.length;
     this.todaySales = todayTransactions.reduce((sum, t) => sum + t.totalAmount, 0);
+
+    // FIX: getBestSellingProductToday() bukan getBestSellingProduct()
     this.bestSelling = this.transactionService.getBestSellingProductToday();
   }
 }

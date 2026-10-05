@@ -15,17 +15,14 @@
     </ion-list-header>
 
     <ion-item>
-      <ion-icon name="moon-outline" slot="start"></ion-icon>
+      <ion-icon name="sunny-outline" slot="start"></ion-icon>
       <ion-label>
-        <h2>Mode Gelap</h2>
-        <p>Aktifkan tema gelap untuk kenyamanan mata</p>
+        <h2>Mode Terang</h2>
+        <p>Aktifkan tema terang / white mode</p>
       </ion-label>
-      <ion-toggle
-        [(ngModel)]="isDarkMode"
-        (ionChange)="toggleDarkMode($event)"
-        slot="end"
-      ></ion-toggle>
+      <ion-toggle [(ngModel)]="isLightMode" (ionChange)="toggleLightMode($event)" slot="end"></ion-toggle>
     </ion-item>
+
   </ion-list>
 
 </ion-content>

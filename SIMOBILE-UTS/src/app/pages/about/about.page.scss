@@ -4,9 +4,10 @@
 }
 
 .app-logo {
-    font-size: 72px;
-    color: var(--ion-color-primary);
+  font-size: 96px;    /* was 72px — bikin lebih besar */
+  color: var(--ion-color-primary);
 }
+
 
 .app-name {
     font-size: 28px;
