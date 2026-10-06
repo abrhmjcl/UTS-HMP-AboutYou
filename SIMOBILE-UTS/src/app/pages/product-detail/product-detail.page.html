@@ -14,7 +14,9 @@
 
 <ion-content class="ion-padding" *ngIf="product">
   <div class="product-image-container">
-    <img [src]="product.imageUrl || 'assets/images/default-product.png'" alt="{{ product.name }}" class="product-image">
+    <img [src]="product.imageUrl || 'assets/images/default-product.png'" 
+     (error)="onImageError($event)"
+     alt="{{ product.name }}" class="product-image">
   </div>
   
   <div class="product-header">

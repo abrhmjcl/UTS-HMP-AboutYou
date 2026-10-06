@@ -44,7 +44,7 @@
         <ion-card class="stat-card">
           <ion-card-content class="ion-text-center">
             <ion-icon name="cash-outline" color="success" style="font-size: 2rem;"></ion-icon>
-            <h2>Rp {{ todaySales | number }}</h2>
+            <h2>Rp {{ totalSales | number }}</h2>
             <p>Total Penjualan</p>
           </ion-card-content>
         </ion-card>
@@ -53,8 +53,9 @@
         <ion-card class="stat-card">
           <ion-card-content class="ion-text-center">
             <ion-icon name="trophy-outline" color="warning" style="font-size: 2rem;"></ion-icon>
-            <h2>{{ bestSelling?.productName || '-' }}</h2>
-            <p>Produk Terlaris ({{ bestSelling?.quantity || 0 }} terjual)</p>
+            <h2 *ngIf="bestSelling">{{ bestSelling.productName }}</h2>
+            <h2 *ngIf="!bestSelling">-</h2>
+            <p>Produk Terlaris<span *ngIf="bestSelling"> ({{ bestSelling.quantity }} terjual)</span></p>
           </ion-card-content>
         </ion-card>
       </ion-col>

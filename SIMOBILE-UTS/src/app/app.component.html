@@ -28,20 +28,18 @@
             </ion-menu-toggle>
 
             <ion-menu-toggle auto-hide="true">
-                <ion-item routerLink="/cart" routerLinkActive="selected" routerDirection="root" lines="none"
-                    detail="false">
+                <ion-item routerLink="/cart" routerLinkActive="selected" routerDirection="forward" lines="none" detail="false">
                     <ion-icon name="cart-outline" slot="start"></ion-icon>
                     <ion-label>Keranjang</ion-label>
                 </ion-item>
-            </ion-menu-toggle>
-
-            <ion-menu-toggle auto-hide="true">
-                <ion-item routerLink="/transaction-history" routerLinkActive="selected" routerDirection="root"
-                    lines="none" detail="false">
+              </ion-menu-toggle>
+              
+              <ion-menu-toggle auto-hide="true">
+                <ion-item routerLink="/tabs/transactions" routerLinkActive="selected" routerDirection="root" lines="none" detail="false">
                     <ion-icon name="receipt-outline" slot="start"></ion-icon>
                     <ion-label>Riwayat Transaksi</ion-label>
                 </ion-item>
-            </ion-menu-toggle>
+              </ion-menu-toggle>
         </ion-list>
 
         <ion-list>

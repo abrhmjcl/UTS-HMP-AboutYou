@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { TransactionService } from '../../services/transaction.service';
 
@@ -8,26 +8,31 @@ import { TransactionService } from '../../services/transaction.service';
   styleUrls: ['./dashboard.page.scss'],
   standalone: false,
 })
-export class DashboardPage {
+export class DashboardPage implements OnInit {
   totalProducts = 0;
-  todaySales = 0;
+  totalSales = 0;
   todayTransactionCount = 0;
   bestSelling: { productName: string; quantity: number } | null = null;
 
   constructor(
     private productService: ProductService,
     private transactionService: TransactionService
-  ) {}
+  ) { }
+
+  ngOnInit() {
+    this.loadData();
+  }
 
   ionViewWillEnter() {
-    // FIX: getAllProducts() bukan getProducts()
+    this.loadData();
+  }
+
+  loadData() {
     this.totalProducts = this.productService.getAllProducts().length;
-
-    const todayTransactions = this.transactionService.getTodayTransactions();
-    this.todayTransactionCount = todayTransactions.length;
-    this.todaySales = todayTransactions.reduce((sum, t) => sum + t.totalAmount, 0);
-
-    // FIX: getBestSellingProductToday() bukan getBestSellingProduct()
+    this.todayTransactionCount = this.transactionService.getTodayTransactionCount();
+    
+    // Perbaikan: mengambil fungsi getTotalSales()
+    this.totalSales = this.transactionService.getTodayTotalSales();
     this.bestSelling = this.transactionService.getBestSellingProductToday();
   }
 }

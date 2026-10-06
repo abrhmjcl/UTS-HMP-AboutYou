@@ -11,14 +11,10 @@ export class ProductCardComponent {
   @Input() product!: Product;
   @Output() addToCartEvent = new EventEmitter<Product>();
   @Output() viewDetailEvent = new EventEmitter<number>();
+  imageError: boolean = false;
 
   constructor() { }
 
-  get defaultImage(): string {
-    return this.product.imageUrl && this.product.imageUrl.trim() !== ''
-      ? this.product.imageUrl
-      : 'assets/images/default-product.png';
-  }
 
   onAddToCart(event: Event) {
     event.stopPropagation();
@@ -27,5 +23,18 @@ export class ProductCardComponent {
 
   onViewDetail() {
     this.viewDetailEvent.emit(this.product.id);
+  }
+
+  get defaultImage(): string {
+  // Jika pernah terjadi error, paksa gunakan gambar default selamanya
+  if (this.imageError) return 'assets/images/default-product.png';
+  
+  return this.product.imageUrl && this.product.imageUrl.trim() !== ''
+    ? this.product.imageUrl
+    : 'assets/images/default-product.png';
+  }
+
+  onImageError() {
+  this.imageError = true;
   }
 }

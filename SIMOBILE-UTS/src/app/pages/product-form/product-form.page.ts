@@ -14,6 +14,7 @@ export class ProductFormPage implements OnInit {
   productForm!: FormGroup;
   isEditMode: boolean = false;
   productIdToEdit: number | null = null;
+  
 
   categories: string[] = ['Makanan Pokok', 'Makanan Instan', 'Minuman', 'Bumbu Dapur', 'Kebutuhan Rumah', 'Snack', 'Lainnya'];
 
@@ -64,27 +65,25 @@ export class ProductFormPage implements OnInit {
   }
 
   onSubmit() {
+    const formData = this.productForm.value;
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
     }
 
-    const formData = this.productForm.value;
-
+    const productData = {
+      ...formData,
+      purchasePrice: Number(formData.purchasePrice),
+      sellingPrice: Number(formData.sellingPrice),
+      stock: Number(formData.stock)
+    };
+    
     if (this.isEditMode && this.productIdToEdit) {
-      const updatedProduct: Product = {
-        id: this.productIdToEdit,
-        ...formData
-      };
-      console.log('Update Product:', updatedProduct);
+      this.productService.updateProduct(this.productIdToEdit, productData);
     } else {
-      const newProduct: Product = {
-        id: new Date().getTime(),
-        ...formData
-      };
-      console.log('Add Product:', newProduct);
+      this.productService.addProduct(productData);
     }
-
+    
     this.router.navigate(['/tabs/products']);
   }
 }

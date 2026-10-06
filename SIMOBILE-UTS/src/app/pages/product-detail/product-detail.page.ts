@@ -45,4 +45,7 @@ export class ProductDetailPage implements OnInit {
       this.router.navigate(['/product-form'], { queryParams: { id: this.product.id } });
     }
   }
+  onImageError(event: any) {
+    event.target.src = 'assets/images/default-product.png';
+  }
 }

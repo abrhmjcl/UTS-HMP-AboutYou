@@ -29,7 +29,9 @@ export class CartPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loadCart();
+    setTimeout(() => {
+      this.loadCart();
+    }, 10);
   }
 
   loadCart() {
