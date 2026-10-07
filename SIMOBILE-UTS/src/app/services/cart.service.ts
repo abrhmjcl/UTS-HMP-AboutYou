@@ -1,6 +1,8 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CartItem } from '../models/cart-item.model';
 import { Product } from '../models/product.model';
+import { ProductService } from './product.service';
+import { TransactionService } from './transaction.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +10,7 @@ import { Product } from '../models/product.model';
 export class CartService {
     private static cartItems: CartItem[] = [];
 
-    constructor() {}
+    constructor(private productService: ProductService, private transactionService: TransactionService) {}
 
     getCartItems(): CartItem[] {
         return CartService.cartItems;
@@ -82,6 +84,8 @@ export class CartService {
         CartService.cartItems = [];
     }
 
+    
+
     getCartTotal(): number {
         let total = 0;
         for (let i = 0; i < CartService.cartItems.length; i++) {
@@ -89,4 +93,47 @@ export class CartService {
         }
         return total;
     }
+
+    increaseQty(productId: number): void {
+        let item = null;
+        for (let i = 0; i < CartService.cartItems.length; i++) {
+            if (CartService.cartItems[i].product.id === productId) {
+                item = CartService.cartItems[i];
+                break;
+            }
+        }
+        if (item != null) {
+            this.updateQuantity(productId, item.quantity + 1);
+        }
+    }
+
+    decreaseQty(productId: number): void {
+        let item = null;
+        for (let i = 0; i < CartService.cartItems.length; i++) {
+            if (CartService.cartItems[i].product.id === productId) {
+                item = CartService.cartItems[i];
+                break;
+            }
+        }
+        if (item != null) {
+            this.updateQuantity(productId, item.quantity - 1);
+        }
+    }
+
+    checkout(): void {
+        const items = CartService.cartItems;
+        this.transactionService.createTransaction(items, this.getCartTotal());
+        
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const product = this.productService.getProductById(item.product.id);
+               
+            if (product != null) {
+                product.stock = product.stock - item.quantity;
+                this.productService.updateProduct(product.id, product);
+            }
+        }
+        this.clearCart();
+    }
 }
+

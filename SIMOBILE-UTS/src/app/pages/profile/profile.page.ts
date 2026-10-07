@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular/lazy';
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +18,9 @@ export class ProfilePage implements OnInit {
     photoUrl: 'assets/images/profile-pic.png'
   };
 
-  constructor(private alertController: AlertController) {}
+  constructor() {}
 
   ngOnInit() {
   }
 }
+

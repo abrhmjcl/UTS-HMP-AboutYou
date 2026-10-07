@@ -74,7 +74,7 @@
 
 <ion-footer *ngIf="product">
   <ion-toolbar class="ion-padding-horizontal">
-    <ion-button expand="block" color="primary" (click)="addToCart()" [disabled]="product.stock === 0">
+    <ion-button expand="block" color="primary" (click)="addToCart($event)" [disabled]="product.stock === 0">
       <ion-icon name="cart-outline" slot="start"></ion-icon>
       Tambah ke Keranjang
     </ion-button>

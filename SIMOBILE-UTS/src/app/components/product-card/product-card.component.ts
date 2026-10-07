@@ -26,7 +26,6 @@ export class ProductCardComponent {
   }
 
   get defaultImage(): string {
-  // Jika pernah terjadi error, paksa gunakan gambar default selamanya
   if (this.imageError) return 'assets/images/default-product.png';
   
   return this.product.imageUrl && this.product.imageUrl.trim() !== ''

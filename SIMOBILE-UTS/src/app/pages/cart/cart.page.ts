@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
@@ -48,75 +48,28 @@ export class CartPage implements OnInit {
   }
 
   increaseQty(productId: number) {
-    let items = this.cartItems;
-    let item: CartItem | null = null;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].product.id === productId) {
-        item = items[i];
-        break;
-      }
-    }
-
-    if (item != null) {
-      const success = this.cartService.updateQuantity(productId, item.quantity + 1);
-      if (!success) {
-        this.toastMessage = `Stok ${item.product.name} maksimum telah tercapai`;
-        this.isToastOpen = true;
-      }
-      this.updatePage();
-    }
+    this.cartService.increaseQty(productId);
+    this.updatePage();
   }
+
 
   decreaseQty(productId: number) {
-    let items = this.cartItems;
-    let item: CartItem | null = null;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].product.id === productId) {
-        item = items[i];
-        break;
-      }
-    }
-
-    if (item != null) {
-      this.cartService.updateQuantity(productId, item.quantity - 1);
-      this.updatePage();
-    }
+    this.cartService.decreaseQty(productId);
+    this.updatePage();
   }
+
 
   removeItem(productId: number) {
     this.cartService.removeFromCart(productId);
     this.updatePage();
   }
 
-  checkoutButtons = [
-    {
-      text: 'Batal',
-      role: 'cancel'
-    },
-    {
-      text: 'Checkout',
-      handler: () => {
-        this.processCheckout();
-      }
-    }
-  ];
-
-  processCheckout() {
-    let items = this.cartItems;
-    this.transactionService.createTransaction(items, this.cartTotal);
-    
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      const product = this.productService.getProductById(item.product.id);
-         
-      if (product != null) {
-        product.stock = product.stock - item.quantity;
-        this.productService.updateProduct(product.id, product);
-      }
-    }
-
-    this.cartService.clearCart();
+    processCheckout() {
+    this.cartService.checkout();
     this.updatePage();
     this.router.navigate(['/tabs/transactions']);
   }
+
 }
+
+

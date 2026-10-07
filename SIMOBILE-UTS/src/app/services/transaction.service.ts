@@ -6,7 +6,6 @@ import { Transaction } from '../models/transaction.model';
     providedIn: 'root'
 })
 export class TransactionService {
-    // Menggunakan static agar 1000% aman dari bug multiple instances di Ionic Lazy Loading
     private static transactions: Transaction[] = [];
     private static nextId = 1;
 

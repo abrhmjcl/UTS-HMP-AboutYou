@@ -19,10 +19,7 @@ const routes: Routes = [
     path: 'product-form',
     loadChildren: () => import('./pages/product-form/product-form.module').then(m => m.ProductFormPageModule)
   },
-  {
-    path: 'product-form/:id',
-    loadChildren: () => import('./pages/product-form/product-form.module').then(m => m.ProductFormPageModule)
-  },
+  
   {
     path: 'cart',
     loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule)
@@ -44,14 +41,8 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then(m => m.AboutPageModule)
   },
-  {
-    path: 'animations',
-    loadChildren: () => import('./animations/animations.module').then( m => m.AnimationsPageModule)
-  },
-  {
-    path: 'animations',
-    loadChildren: () => import('./animations/animations.module').then( m => m.AnimationsPageModule)
-  },
+  
+  
 ];
 
 @NgModule({
@@ -61,3 +52,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

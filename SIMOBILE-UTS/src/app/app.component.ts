@@ -9,7 +9,6 @@ import { AlertController } from '@ionic/angular/lazy';
 })
 export class AppComponent {
   constructor(private alertController: AlertController) {
-    // Set dark mode as default on app start
     document.body.classList.add('dark');
   }
 

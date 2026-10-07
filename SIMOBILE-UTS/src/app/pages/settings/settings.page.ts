@@ -14,7 +14,6 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
     this.isLightMode = !document.body.classList.contains('dark');
-    // Ensure light class is present if light mode is active
     if (this.isLightMode) {
       document.body.classList.add('light');
     }

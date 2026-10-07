@@ -63,7 +63,7 @@ export class ProductService {
             description: 'Susu kental manis',
             purchasePrice: 9000,
             sellingPrice: 12000,
-            stock: 40,
+            stock: 0,
             imageUrl: ''
         },
         {
@@ -136,19 +136,19 @@ export class ProductService {
                 ProductService.products[i].name = updatedData.name;
                 
                 ProductService.products[i].stock = updatedData.stock;
-                if (updatedData.category) {
+                if (updatedData.category !== undefined) {
                     ProductService.products[i].category = updatedData.category;
                 }
-                if (updatedData.description) {
+                if (updatedData.description !== undefined) {
                     ProductService.products[i].description = updatedData.description;
                 }
-                if (updatedData.imageUrl) {
+                if (updatedData.imageUrl !== undefined) {
                     ProductService.products[i].imageUrl = updatedData.imageUrl;
                 }
-                if (updatedData.purchasePrice) {
+                if (updatedData.purchasePrice !== undefined) {
                     ProductService.products[i].purchasePrice = updatedData.purchasePrice;
                 }
-                if (updatedData.sellingPrice) {
+                if (updatedData.sellingPrice !== undefined) {
                     ProductService.products[i].sellingPrice = updatedData.sellingPrice;
                 }
                 return true;
@@ -183,3 +183,4 @@ export class ProductService {
         return ProductService.products.length;
     }
 }
+

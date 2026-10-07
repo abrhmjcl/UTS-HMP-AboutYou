@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
+import { AnimationController } from '@ionic/angular';
+import { addToCartBounceAnimation } from '../../animations/add-to-cart-bounce.animation';
 
 @Component({
   selector: 'app-product-detail',
@@ -13,15 +15,23 @@ import { Product } from '../../models/product.model';
 })
 export class ProductDetailPage implements OnInit {
   product: Product | undefined;
-  profit: number = 0;
+  get profit(): number { return this.product ? this.product.sellingPrice - this.product.purchasePrice : 0; }
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService,
-    private router: Router,
+    private router: Router, private animationCtrl: AnimationController
     
   ) { }
+
+  ionViewWillEnter() {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      const id = parseInt(idParam, 10);
+      this.product = this.productService.getProductById(id);
+    }
+  }
 
   ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -29,16 +39,17 @@ export class ProductDetailPage implements OnInit {
       const id = parseInt(idParam, 10);
       this.product = this.productService.getProductById(id);
 
-      if (this.product) {
-        this.profit = this.product.sellingPrice - this.product.purchasePrice;
-      }
+      
     }
   }
 
   isToastOpen = false;
   toastMessage = '';
 
-  addToCart() {
+  addToCart(event?: any) {
+    if (event) {
+      addToCartBounceAnimation(this.animationCtrl, event.target);
+    }
     if (this.product && this.product.stock > 0) {
       const success = this.cartService.addToCart(this.product);
       if (success) {
@@ -60,4 +71,8 @@ export class ProductDetailPage implements OnInit {
     }
   }
 }
+
+
+
+
 
