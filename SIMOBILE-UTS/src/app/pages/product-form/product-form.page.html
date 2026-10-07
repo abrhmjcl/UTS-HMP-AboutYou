@@ -1,4 +1,4 @@
-<ion-header>
+﻿<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/products"></ion-back-button>
@@ -11,15 +11,13 @@
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <ion-list lines="full">
 
-
       <ion-item>
         <ion-label position="stacked">Nama Produk <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="name" placeholder="Misal: Beras Premium 5kg" type="text"></ion-input>
       </ion-item>
-      <div class="error-message" *ngIf="f['name'].touched && f['name'].invalid">
-        <span *ngIf="f['name'].errors?.['required']">Nama produk wajib diisi.</span>
-        <span *ngIf="f['name'].errors?.['minlength']">Nama produk minimal 2 karakter.</span>
-      </div>
+      <ion-note color="danger" class="ion-padding-start" *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+        Nama produk wajib diisi.
+      </ion-note>
 
       <ion-item>
         <ion-label position="stacked">Kategori <span class="text-danger">*</span></ion-label>
@@ -27,41 +25,37 @@
           <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
         </ion-select>
       </ion-item>
-      <div class="error-message" *ngIf="f['category'].touched && f['category'].invalid">
-        <span *ngIf="f['category'].errors?.['required']">Kategori wajib dipilih.</span>
-      </div>
+      <ion-note color="danger" class="ion-padding-start" *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+        Kategori wajib dipilih.
+      </ion-note>
 
       <ion-item>
         <ion-label position="stacked">Harga Beli (Rp) <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="purchasePrice" type="number" placeholder="0"></ion-input>
       </ion-item>
-      <div class="error-message" *ngIf="f['purchasePrice'].touched && f['purchasePrice'].invalid">
-        <span *ngIf="f['purchasePrice'].errors?.['required']">Harga beli wajib diisi.</span>
-        <span *ngIf="f['purchasePrice'].errors?.['min']">Harga tidak boleh kurang dari 1.</span>
-      </div>
+      <ion-note color="danger" class="ion-padding-start" *ngIf="productForm.get('purchasePrice')?.invalid && productForm.get('purchasePrice')?.touched">
+        Harga beli wajib diisi dan harus lebih dari 0.
+      </ion-note>
 
       <ion-item>
         <ion-label position="stacked">Harga Jual (Rp) <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="sellingPrice" type="number" placeholder="0"></ion-input>
       </ion-item>
-      <div class="error-message" *ngIf="f['sellingPrice'].touched && f['sellingPrice'].invalid">
-        <span *ngIf="f['sellingPrice'].errors?.['required']">Harga jual wajib diisi.</span>
-        <span *ngIf="f['sellingPrice'].errors?.['min']">Harga tidak boleh kurang dari 1.</span>
-      </div>
+      <ion-note color="danger" class="ion-padding-start" *ngIf="productForm.get('sellingPrice')?.invalid && productForm.get('sellingPrice')?.touched">
+        Harga jual wajib diisi dan harus lebih dari 0.
+      </ion-note>
 
       <ion-item>
         <ion-label position="stacked">Jumlah Stok <span class="text-danger">*</span></ion-label>
         <ion-input formControlName="stock" type="number" placeholder="0"></ion-input>
       </ion-item>
-      <div class="error-message" *ngIf="f['stock'].touched && f['stock'].invalid">
-        <span *ngIf="f['stock'].errors?.['required']">Stok wajib diisi.</span>
-        <span *ngIf="f['stock'].errors?.['min']">Stok minimal 0.</span>
-      </div>
+      <ion-note color="danger" class="ion-padding-start" *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
+        Stok wajib diisi dan tidak boleh negatif.
+      </ion-note>
 
       <ion-item>
         <ion-label position="stacked">Deskripsi Singkat</ion-label>
-        <ion-textarea formControlName="description" placeholder="Penjelasan tentang produk..."
-          [autoGrow]="true"></ion-textarea>
+        <ion-textarea formControlName="description" placeholder="Penjelasan tentang produk..." [autoGrow]="true"></ion-textarea>
       </ion-item>
 
       <ion-item>

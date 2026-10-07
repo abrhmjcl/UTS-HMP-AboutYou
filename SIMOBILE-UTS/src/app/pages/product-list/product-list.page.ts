@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
-import { AnimationController, ToastController } from '@ionic/angular/lazy';
+import { AnimationController } from '@ionic/angular/lazy';
 import { fadeInProductsAnimation } from '../../animations/product-fade-in.animation';
 
 @Component({
@@ -22,7 +22,7 @@ export class ProductListPage implements OnInit {
     private cartService: CartService,
     private router: Router,
     private animationCtrl: AnimationController,
-    private toastCtrl: ToastController
+    
   ) { }
 
   ngOnInit() {
@@ -30,36 +30,59 @@ export class ProductListPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.refreshData();
+  }
+
+  refreshData() {
     this.loadProducts();
     this.filterProducts();
   }
 
   loadProducts() {
     this.products = this.productService.getAllProducts();
-    this.filteredProducts = [...this.products];
+    this.filteredProducts = [];
+    for (let i = 0; i < this.products.length; i++) {
+      this.filteredProducts.push(this.products[i]);
+    }
   }
 
   filterProducts() {
     if (!this.searchTerm || this.searchTerm.trim() === '') {
-      this.filteredProducts = [...this.products];
+      this.filteredProducts = [];
+      for (let i = 0; i < this.products.length; i++) {
+        this.filteredProducts.push(this.products[i]);
+      }
     } else {
       const term = this.searchTerm.toLowerCase();
-      this.filteredProducts = this.products.filter(p =>
-        p.name.toLowerCase().includes(term) ||
-        p.category.toLowerCase().includes(term)
-      );
+      this.filteredProducts = [];
+      for (let i = 0; i < this.products.length; i++) {
+        const p = this.products[i];
+        if (p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term)) {
+          this.filteredProducts.push(p);
+        }
+      }
     }
   }
 
-  async handleAddToCart(product: Product) {
-    this.cartService.addToCart(product);
-    const toast = await this.toastCtrl.create({
-      message: `${product.name} ditambahkan ke keranjang`,
-      duration: 2000,
-      color: 'success',
-      position: 'top'
-    });
-    await toast.present();
+  isToastOpen = false;
+  toastMessage = '';
+  toastColor = '';
+  toastClass = '';
+
+  handleAddToCart(product: Product) {
+    const success = this.cartService.addToCart(product);
+    
+    if (success) {
+      this.toastMessage = `${product.name} ditambahkan ke keranjang`;
+      this.toastColor = '';
+      this.toastClass = 'white-toast';
+      this.isToastOpen = true;
+    } else {
+      this.toastMessage = `Stok ${product.name} tidak mencukupi`;
+      this.toastColor = 'danger';
+      this.toastClass = '';
+      this.isToastOpen = true;
+    }
   }
 
   handleViewDetail(productId: number) {

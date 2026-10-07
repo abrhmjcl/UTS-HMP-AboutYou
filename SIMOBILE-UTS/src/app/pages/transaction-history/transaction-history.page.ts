@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { Transaction } from '../../models/transaction.model';
 
@@ -8,20 +8,20 @@ import { Transaction } from '../../models/transaction.model';
   styleUrls: ['./transaction-history.page.scss'],
   standalone: false,
 })
-export class TransactionHistoryPage implements OnInit {
+export class TransactionHistoryPage {
   transactions: Transaction[] = [];
 
   constructor(private transactionService: TransactionService) { }
 
-  ngOnInit() {
-    this.loadTransactions();
+  ionViewWillEnter() {
+    this.refreshData();
   }
 
-  ionViewWillEnter() {
+  refreshData() {
     this.transactions = this.transactionService.getAllTransactions();
   }
 
-  loadTransactions() {
-    this.transactions = [...this.transactionService.getAllTransactions()];
+  trackByTxId(index: number, tx: Transaction) {
+    return tx.id;
   }
 }

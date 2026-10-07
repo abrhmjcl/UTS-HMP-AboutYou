@@ -8,16 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  isDarkMode: boolean = false;
+  isLightMode: boolean = true;
 
   constructor() { }
 
   ngOnInit() {
-    this.isDarkMode = document.body.classList.contains('dark');
+    this.isLightMode = !document.body.classList.contains('dark');
+    // Ensure light class is present if light mode is active
+    if (this.isLightMode) {
+      document.body.classList.add('light');
+    }
   }
 
-  toggleDarkMode(event: any) {
+  toggleLightMode(event: any) {
     const isChecked = event.detail.checked;
-    document.body.classList.toggle('dark', isChecked);
+    document.body.classList.toggle('dark', !isChecked);
+    document.body.classList.toggle('light', isChecked);
+  }
+
+  logout() {
+    window.location.reload();
   }
 }

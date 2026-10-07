@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
@@ -18,7 +19,8 @@ export class ProductDetailPage implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    
   ) { }
 
   ngOnInit() {
@@ -33,10 +35,18 @@ export class ProductDetailPage implements OnInit {
     }
   }
 
+  isToastOpen = false;
+  toastMessage = '';
+
   addToCart() {
     if (this.product && this.product.stock > 0) {
-      this.cartService.addToCart(this.product);
-      this.router.navigate(['/cart']);
+      const success = this.cartService.addToCart(this.product);
+      if (success) {
+        this.router.navigate(['/cart']);
+      } else {
+        this.toastMessage = `Stok ${this.product.name} tidak mencukupi`;
+        this.isToastOpen = true;
+      }
     }
   }
 

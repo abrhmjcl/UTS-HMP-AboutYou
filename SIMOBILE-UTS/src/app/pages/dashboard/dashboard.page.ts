@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { TransactionService } from '../../services/transaction.service';
 
@@ -9,10 +9,10 @@ import { TransactionService } from '../../services/transaction.service';
   standalone: false,
 })
 export class DashboardPage {
-  totalProducts = 0;
-  todaySales = 0;
-  todayTransactionCount = 0;
-  bestSelling: { productName: string; quantity: number } | null = null;
+  totalProducts: number = 0;
+  todaySales: number = 0;
+  todayTransactionCount: number = 0;
+  bestSellingProduct: { productName: string; quantity: number } = { productName: '-', quantity: 0 };
 
   constructor(
     private productService: ProductService,
@@ -20,10 +20,13 @@ export class DashboardPage {
   ) {}
 
   ionViewWillEnter() {
-    this.totalProducts = this.productService.getAllProducts().length;
-    const todayTransactions = this.transactionService.getTodayTransactions();
-    this.todayTransactionCount = todayTransactions.length;
-    this.todaySales = todayTransactions.reduce((sum, t) => sum + t.totalAmount, 0);
-    this.bestSelling = this.transactionService.getBestSellingProductToday();
+    this.refreshData();
+  }
+
+  refreshData() {
+    this.totalProducts = this.productService.getTotalProductCount();
+    this.todaySales = this.transactionService.getTodayTotalSales();
+    this.todayTransactionCount = this.transactionService.getTodayTransactionCount();
+    this.bestSellingProduct = this.transactionService.getBestSellingProductToday();
   }
 }

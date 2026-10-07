@@ -1,31 +1,34 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/dashboard"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Pengaturan</ion-title>
-  </ion-toolbar>
+﻿<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/dashboard"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Pengaturan</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
-  <ion-list>
-    <ion-list-header>
-      <ion-label>Tampilan</ion-label>
-    </ion-list-header>
+    <ion-list class="custom-card ion-margin-bottom" lines="none">
+        <ion-list-header>
+            <ion-label>Tampilan</ion-label>
+        </ion-list-header>
 
-    <ion-item>
-      <ion-icon name="moon-outline" slot="start"></ion-icon>
-      <ion-label>
-        <h2>Mode Gelap</h2>
-        <p>Aktifkan tema gelap untuk kenyamanan mata</p>
-      </ion-label>
-      <ion-toggle
-        [(ngModel)]="isDarkMode"
-        (ionChange)="toggleDarkMode($event)"
-        slot="end"
-      ></ion-toggle>
-    </ion-item>
-  </ion-list>
+        <ion-item>
+            <ion-icon name="sunny-outline" slot="start"></ion-icon>
+            <ion-label>
+                <h2>Mode Terang</h2>
+                <p>Aktifkan mode terang</p>
+            </ion-label>
+            <ion-toggle [(ngModel)]="isLightMode" (ionChange)="toggleLightMode($event)" slot="end"></ion-toggle>
+        </ion-item>
+    </ion-list>
+
+    <div class="ion-margin-top ion-padding-top" style="margin-top: 40px;">
+        <ion-button expand="block" color="danger" (click)="logout()">
+            <ion-icon name="log-out-outline" slot="start"></ion-icon>
+            LOGOUT
+        </ion-button>
+    </div>
 
 </ion-content>

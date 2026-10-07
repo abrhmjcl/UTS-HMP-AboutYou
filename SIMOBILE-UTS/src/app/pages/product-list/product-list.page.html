@@ -1,12 +1,12 @@
-<ion-header>
+﻿<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Produk</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/tabs/product-form">
-        <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-button (click)="refreshData()">
+        <ion-icon name="refresh-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -18,6 +18,20 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="refreshData(); $event.target.complete()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="ion-margin-bottom">
+    <ion-button expand="block" color="primary" routerLink="/product-form" class="ion-margin-bottom">
+      <ion-icon name="add-outline" slot="start"></ion-icon>
+      TAMBAH PRODUK
+    </ion-button>
+    <ion-button expand="block" color="secondary" routerLink="/cart">
+      <ion-icon name="cart-outline" slot="start"></ion-icon>
+      KERANJANG BELANJA
+    </ion-button>
+  </div>
   <ion-grid *ngIf="filteredProducts.length > 0">
     <ion-row>
       <ion-col size="6" size-md="4" size-lg="3" *ngFor="let product of filteredProducts">
@@ -33,4 +47,14 @@
     <h3>Produk tidak ditemukan</h3>
     <p>Coba gunakan kata kunci pencarian yang lain.</p>
   </div>
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    [message]="toastMessage"
+    [duration]="2000"
+    [color]="toastColor || undefined"
+    [cssClass]="toastClass"
+    position="top"
+    (didDismiss)="isToastOpen = false"
+  ></ion-toast>
 </ion-content>

@@ -1,63 +1,92 @@
-import { Injectable } from '@angular/core';
-import { Product } from '../models/product.model';
+﻿import { Injectable } from '@angular/core';
 import { CartItem } from '../models/cart-item.model';
+import { Product } from '../models/product.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
-    private cartItems: CartItem[] = [];
-    constructor() { }
+    private static cartItems: CartItem[] = [];
+
+    constructor() {}
 
     getCartItems(): CartItem[] {
-        return this.cartItems;
+        return CartService.cartItems;
     }
 
-    getCartTotal(): number {
-        return this.cartItems.reduce((total, item) => total + item.subtotal, 0);
-    }
-
-    getCartItemCount(): number {
-        return this.cartItems.reduce((count, item) => count + item.quantity, 0);
-    }
-
-
-    addToCart(product: Product, quantity: number = 1): void {
-        const existingItem = this.cartItems.find(
-            item => item.product.id === product.id
-        );
+    addToCart(product: Product): boolean {
+        let existingItem: CartItem | null = null;
+        for (let i = 0; i < CartService.cartItems.length; i++) {
+            if (CartService.cartItems[i].product.id === product.id) {
+                existingItem = CartService.cartItems[i];
+                break;
+            }
+        }
 
         if (existingItem) {
-            existingItem.quantity += quantity;
-            existingItem.subtotal = existingItem.product.sellingPrice * existingItem.quantity;
-        } else {
-            this.cartItems.push({
-                product: product,
-                quantity: quantity,
-                subtotal: product.sellingPrice * quantity
-            });
-        }
-    }
-
-    updateQuantity(productId: number, quantity: number): void {
-        const item = this.cartItems.find(i => i.product.id === productId);
-        if (item) {
-            if (quantity <= 0) {
-                this.removeFromCart(productId);
+            if (existingItem.quantity < product.stock) {
+                existingItem.quantity += 1;
+                existingItem.subtotal = existingItem.quantity * product.sellingPrice;
+                return true;
             } else {
-                item.quantity = quantity;
-                item.subtotal = item.product.sellingPrice * quantity;
+                return false; 
+            }
+        } else {
+            if (product.stock > 0) {
+                const newItem: CartItem = {
+                    product: product,
+                    quantity: 1,
+                    subtotal: product.sellingPrice
+                };
+                CartService.cartItems.push(newItem);
+                return true;
+            } else {
+                return false; 
             }
         }
     }
 
+    updateQuantity(productId: number, quantity: number): boolean {
+        let existingItem: CartItem | null = null;
+        for (let i = 0; i < CartService.cartItems.length; i++) {
+            if (CartService.cartItems[i].product.id === productId) {
+                existingItem = CartService.cartItems[i];
+                break;
+            }
+        }
+
+        if (existingItem) {
+            if (quantity <= 0) {
+                this.removeFromCart(productId);
+                return true;
+            } else if (quantity <= existingItem.product.stock) {
+                existingItem.quantity = quantity;
+                existingItem.subtotal = existingItem.quantity * existingItem.product.sellingPrice;
+                return true;
+            }
+        }
+        return false;
+    }
+
     removeFromCart(productId: number): void {
-        this.cartItems = this.cartItems.filter(
-            item => item.product.id !== productId
-        );
+        const newCart: CartItem[] = [];
+        for (let i = 0; i < CartService.cartItems.length; i++) {
+            if (CartService.cartItems[i].product.id !== productId) {
+                newCart.push(CartService.cartItems[i]);
+            }
+        }
+        CartService.cartItems = newCart;
     }
 
     clearCart(): void {
-        this.cartItems = [];
+        CartService.cartItems = [];
+    }
+
+    getCartTotal(): number {
+        let total = 0;
+        for (let i = 0; i < CartService.cartItems.length; i++) {
+            total += CartService.cartItems[i].subtotal;
+        }
+        return total;
     }
 }

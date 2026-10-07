@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular/lazy';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { TransactionService } from '../../services/transaction.service';
@@ -15,84 +14,109 @@ import { CartItem } from '../../models/cart-item.model';
 export class CartPage implements OnInit {
   cartItems: CartItem[] = [];
   cartTotal: number = 0;
+  isToastOpen = false;
+  toastMessage = '';
 
   constructor(
     private cartService: CartService,
     private productService: ProductService,
     private transactionService: TransactionService,
-    private router: Router,
-    private alertController: AlertController
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.loadCart();
-  }
-
-  ionViewWillEnter() {
-    this.loadCart();
-  }
-
-  loadCart() {
-    this.cartItems = [...this.cartService.getCartItems()];
+    this.cartItems = this.cartService.getCartItems();
     this.cartTotal = this.cartService.getCartTotal();
   }
 
+  ionViewWillEnter() {
+    this.cartItems = this.cartService.getCartItems();
+    this.cartTotal = this.cartService.getCartTotal();
+  }
+
+  updatePage() {
+    const items = this.cartService.getCartItems();
+    this.cartItems = [];
+    for (let i = 0; i < items.length; i++) {
+      this.cartItems.push(items[i]);
+    }
+    this.cartTotal = this.cartService.getCartTotal();
+  }
+
+  trackByItemId(index: number, item: CartItem) {
+    return item.product.id;
+  }
+
   increaseQty(productId: number) {
-    const item = this.cartItems.find(i => i.product.id === productId);
-    if (item) {
-      this.cartService.updateQuantity(productId, item.quantity + 1);
-      this.loadCart();
+    let items = this.cartItems;
+    let item: CartItem | null = null;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].product.id === productId) {
+        item = items[i];
+        break;
+      }
+    }
+
+    if (item != null) {
+      const success = this.cartService.updateQuantity(productId, item.quantity + 1);
+      if (!success) {
+        this.toastMessage = `Stok ${item.product.name} maksimum telah tercapai`;
+        this.isToastOpen = true;
+      }
+      this.updatePage();
     }
   }
 
   decreaseQty(productId: number) {
-    const item = this.cartItems.find(i => i.product.id === productId);
-    if (item) {
+    let items = this.cartItems;
+    let item: CartItem | null = null;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].product.id === productId) {
+        item = items[i];
+        break;
+      }
+    }
+
+    if (item != null) {
       this.cartService.updateQuantity(productId, item.quantity - 1);
-      this.loadCart();
+      this.updatePage();
     }
   }
 
   removeItem(productId: number) {
     this.cartService.removeFromCart(productId);
-    this.loadCart();
+    this.updatePage();
   }
 
-  async confirmCheckout() {
-    const alert = await this.alertController.create({
-      header: 'Konfirmasi Checkout',
-      message: `Total belanja Anda Rp ${this.cartTotal.toLocaleString('id-ID')}. Lanjutkan?`,
-      buttons: [
-        {
-          text: 'Batal',
-          role: 'cancel'
-        },
-        {
-          text: 'Checkout',
-          handler: () => {
-            this.processCheckout();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
+  checkoutButtons = [
+    {
+      text: 'Batal',
+      role: 'cancel'
+    },
+    {
+      text: 'Checkout',
+      handler: () => {
+        this.processCheckout();
+      }
+    }
+  ];
 
   processCheckout() {
-    const transaction = this.transactionService.createTransaction(this.cartItems, this.cartTotal);
-    this.cartItems.forEach(item => {
+    let items = this.cartItems;
+    this.transactionService.createTransaction(items, this.cartTotal);
+    
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
       const product = this.productService.getProductById(item.product.id);
-      if (product) {
-        this.productService.updateProduct(product.id, {
-          ...product, stock: product.stock - item.quantity
-        });
+         
+      if (product != null) {
+        product.stock = product.stock - item.quantity;
+        this.productService.updateProduct(product.id, product);
       }
-    });
+    }
 
     this.cartService.clearCart();
-    this.loadCart();
-
+    this.updatePage();
     this.router.navigate(['/tabs/transactions']);
   }
 }

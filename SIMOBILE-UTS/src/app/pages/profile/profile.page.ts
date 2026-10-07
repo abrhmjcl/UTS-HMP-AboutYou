@@ -10,20 +10,16 @@ export class ProfilePage implements OnInit {
 
   owner = {
     name: 'Ibu Marni',
-    role: 'Pemilik Toko Makmur Jaya',
-    phone: '0812-9988-7766',
-    email: 'marni@tokomakmurjaya.com',
-    address: 'Jl. Rungkut Madya No. 1, Surabaya',
-    joinDate: 'Maret 2023',
+    role: 'Owner Toko Makmur Jaya',
+    phone: ' (031) 2981005',
+    email: 'makmurjaya@gmail.com',
+    address: 'Jl. Raya Kalirungkut, Kali Rungkut, Kec. Rungkut, Surabaya, Jawa Timur 60293',
+    joinDate: '-',
     photoUrl: 'assets/images/profile-pic.png'
   };
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  logout() {
-    window.location.reload();
   }
 }

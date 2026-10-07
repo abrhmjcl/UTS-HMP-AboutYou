@@ -4,26 +4,38 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Riwayat Transaksi</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshData(); $event.target.complete()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list *ngIf="transactions.length > 0; else emptyState">
-    <ion-item *ngFor="let t of transactions" [routerLink]="['/transaction-detail', t.id]" detail>
+    <ion-item *ngFor="let t of transactions; trackBy: trackByTxId" [routerLink]="['/transaction-detail', t.id]" detail>
       <ion-icon name="receipt-outline" slot="start" color="primary"></ion-icon>
       <ion-label>
         <h2>Transaksi #{{ t.id }}</h2>
         <p>{{ t.date | date:'dd MMM yyyy, HH:mm' }}</p>
       </ion-label>
-      <ion-note slot="end">
-        <p style="font-weight: bold;">Rp {{ t.totalAmount | number }}</p>
+      <ion-note slot="end" color="primary">
+        Rp {{ t.totalAmount | number }}
         <p>{{ t.items.length }} item</p>
       </ion-note>
     </ion-item>
   </ion-list>
 
   <ng-template #emptyState>
-    <app-empty-state icon="receipt-outline" title="Belum Ada Transaksi"
-      message="Transaksi yang sudah dikonfirmasi akan muncul di sini."></app-empty-state>
+    <div class="ion-text-center ion-padding ion-margin-top">
+      <ion-icon name="document-text-outline" style="font-size: 4rem; color: #ccc;"></ion-icon>
+      <h3 style="color: #666;">Belum Ada Transaksi</h3>
+      <p style="color: #999;">Transaksi yang telah selesai akan muncul di sini.</p>
+    </div>
   </ng-template>
 </ion-content>

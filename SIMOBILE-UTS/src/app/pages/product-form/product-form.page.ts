@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -14,24 +13,23 @@ export class ProductFormPage implements OnInit {
   productForm!: FormGroup;
   isEditMode: boolean = false;
   productIdToEdit: number | null = null;
-
   categories: string[] = ['Makanan Pokok', 'Makanan Instan', 'Minuman', 'Bumbu Dapur', 'Kebutuhan Rumah', 'Snack', 'Lainnya'];
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.productForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      category: ['', [Validators.required]],
+    this.productForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      category: ['', Validators.required],
+      purchasePrice: [0, [Validators.required, Validators.min(1)]],
+      sellingPrice: [0, [Validators.required, Validators.min(1)]],
+      stock: [0, [Validators.required, Validators.min(0)]],
       description: [''],
-      purchasePrice: ['', [Validators.required, Validators.min(1)]],
-      sellingPrice: ['', [Validators.required, Validators.min(1)]],
-      stock: ['', [Validators.required, Validators.min(0)]],
       imageUrl: ['']
     });
 
@@ -42,10 +40,6 @@ export class ProductFormPage implements OnInit {
         this.loadProductForEdit(this.productIdToEdit);
       }
     });
-  }
-
-  get f() {
-    return this.productForm.controls;
   }
 
   loadProductForEdit(id: number) {
@@ -69,20 +63,10 @@ export class ProductFormPage implements OnInit {
       return;
     }
 
-    const formData = this.productForm.value;
-
     if (this.isEditMode && this.productIdToEdit) {
-      const updatedProduct: Product = {
-        id: this.productIdToEdit,
-        ...formData
-      };
-      console.log('Update Product:', updatedProduct);
+      this.productService.updateProduct(this.productIdToEdit, this.productForm.value);
     } else {
-      const newProduct: Product = {
-        id: new Date().getTime(),
-        ...formData
-      };
-      console.log('Add Product:', newProduct);
+      this.productService.addProduct(this.productForm.value);
     }
 
     this.router.navigate(['/tabs/products']);

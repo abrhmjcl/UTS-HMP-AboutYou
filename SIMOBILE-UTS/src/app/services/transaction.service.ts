@@ -1,4 +1,4 @@
-import { Injectable} from "@angular/core";
+﻿import { Injectable} from "@angular/core";
 import { CartItem } from '../models/cart-item.model';
 import { Transaction } from '../models/transaction.model';
 
@@ -6,33 +6,48 @@ import { Transaction } from '../models/transaction.model';
     providedIn: 'root'
 })
 export class TransactionService {
-    private transactions: Transaction[] = [];
-    private nextId = 1;
+    // Menggunakan static agar 1000% aman dari bug multiple instances di Ionic Lazy Loading
+    private static transactions: Transaction[] = [];
+    private static nextId = 1;
 
     constructor() {}
 
 
-    getAllTransactions(): Transaction[]{
-        return this.transactions;
+    getAllTransactions(): Transaction[] {
+        return TransactionService.transactions;
     }
 
     getTransactionsById(id: number): Transaction | undefined {
-        return this.transactions.find(t => t.id === id);
+        for (let i = 0; i < TransactionService.transactions.length; i++) {
+            if (TransactionService.transactions[i].id === id) {
+                return TransactionService.transactions[i];
+            }
+        }
+        return undefined;
     }
 
     getTodayTransactions(): Transaction[] {
-        const today = new Date(); 
-        return this.transactions.filter(t => {
+        const today = new Date();
+        const result: Transaction[] = [];
+        for (let i = 0; i < TransactionService.transactions.length; i++) {
+            const t = TransactionService.transactions[i];
             const tDate = new Date(t.date);
-            return tDate.getFullYear() === today.getFullYear() &&
+            if (tDate.getFullYear() === today.getFullYear() &&
                 tDate.getMonth() === today.getMonth() &&
-                tDate.getDate() === today.getDate();
-        });
+                tDate.getDate() === today.getDate()) {
+                result.push(t);
+            }
+        }
+        return result;
     }
 
     getTodayTotalSales(): number {
-        return this.getTodayTransactions().reduce(
-            (total, t) => total + t.totalAmount, 0);
+        const todayTxs = this.getTodayTransactions();
+        let total = 0;
+        for (let i = 0; i < todayTxs.length; i++) {
+            total += todayTxs[i].totalAmount;
+        }
+        return total;
     }
 
     getTodayTransactionCount(): number {
@@ -40,21 +55,23 @@ export class TransactionService {
     }
 
 
-    getBestSellingProductToday(): { productName: string; quantity: number} | null {
+    getBestSellingProductToday(): { productName: string; quantity: number} {
         const todayTransactions = this.getTodayTransactions();
 
         if (todayTransactions.length === 0) {
-            return null;
+            return { productName: '-', quantity: 0 };
         }
 
-        const productSales: { [key: string]: number } = {};
+        const productSales: any = {};
 
-        for (const transaction of todayTransactions) {
-            for (const item of transaction.items) {
+        for (let i = 0; i < todayTransactions.length; i++) {
+            const transaction = todayTransactions[i];
+            for (let j = 0; j < transaction.items.length; j++) {
+                const item = transaction.items[j];
                 const name = item.product.name;
                 if (productSales[name]) {
                     productSales[name] += item.quantity;
-                }else{
+                } else {
                     productSales[name] = item.quantity;
                 }
             }
@@ -63,25 +80,39 @@ export class TransactionService {
         let bestProduct = '';
         let maxQuantity = 0;
 
-        for(const [name, qty] of Object.entries(productSales)) {
-            if (qty > maxQuantity) {
-                maxQuantity = qty;
+        const keys = Object.keys(productSales);
+        for (let i = 0; i < keys.length; i++) {
+            const name = keys[i];
+            if (productSales[name] > maxQuantity) {
+                maxQuantity = productSales[name];
                 bestProduct = name;
             }
         }
-    
+
+        if (bestProduct === '') {
+            return { productName: '-', quantity: 0 };
+        }
 
         return { productName: bestProduct, quantity: maxQuantity };
     }
 
-        createTransaction(items: CartItem[], totalAmount: number): Transaction {
-            const transaction: Transaction = {
-                id : this.nextId++,
-                date: new Date(),
-                items: items.map(item => ({ ...item })),
-                totalAmount: totalAmount
-        };
-        this.transactions.push(transaction);
-        return transaction;
+    createTransaction(items: CartItem[], totalAmount: number): Transaction {
+        const clonedItems: CartItem[] = [];
+        for (let i = 0; i < items.length; i++) {
+            clonedItems.push({
+                product: items[i].product,
+                quantity: items[i].quantity,
+                subtotal: (items[i].product.sellingPrice * items[i].quantity)
+            });
         }
+
+        const transaction: Transaction = {
+            id : TransactionService.nextId++,
+            date: new Date(),
+            items: clonedItems,
+            totalAmount: totalAmount
+        };
+        TransactionService.transactions.push(transaction);
+        return transaction;
     }
+}

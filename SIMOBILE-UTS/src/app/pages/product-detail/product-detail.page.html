@@ -40,11 +40,11 @@
         </ion-item>
         <ion-item>
           <ion-label color="medium">Estimasi Profit</ion-label>
-          <ion-note slot="end" color="success">Rp {{ profit | number }}</ion-note>
+          <ion-note slot="end" color="primary">Rp {{ profit | number }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label color="medium">Sisa Stok</ion-label>
-          <ion-badge slot="end" [color]="product.stock > 0 ? 'success' : 'danger'">
+          <ion-badge slot="end" [color]="product.stock > 0 ? 'primary' : 'danger'">
             {{ product.stock > 0 ? product.stock + ' Pcs' : 'Habis' }}
           </ion-badge>
         </ion-item>
@@ -77,4 +77,13 @@
       Tambah ke Keranjang
     </ion-button>
   </ion-toolbar>
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    [message]="toastMessage"
+    [duration]="2000"
+    color="danger"
+    position="top"
+    (didDismiss)="isToastOpen = false"
+  ></ion-toast>
 </ion-footer>
