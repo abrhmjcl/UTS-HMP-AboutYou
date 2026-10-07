@@ -14,7 +14,7 @@ export class ProductService {
             purchasePrice: 55000,
             sellingPrice: 65000,
             stock: 25,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWoNCNsMAvcNy1vHpwiDIdvyqvRcXRmLyXg_s3joe3bA&s=10'
         },
         {
             id: 2,
@@ -24,17 +24,17 @@ export class ProductService {
             purchasePrice: 28000,
             sellingPrice: 35000,
             stock: 15,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_oe1B7IcT_wW6uI2iNtiQRL5c0pgcW8QVinNX4p18Ug&s=10'
         },
         {
             id: 3,
-            name: 'Gula Pasir Gulaku 1kg',
+            name: 'Gula Pasir 1kg',
             category: 'Bahan Kue',
             description: 'Gula tebu',
             purchasePrice: 12000,
             sellingPrice: 15000,
             stock: 30,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJBHYQaKwhMhfH2YpBvv_B07OtTQo-SnTOp_fFJYRgaw&s=10'
         },
         {
             id: 4,
@@ -44,7 +44,7 @@ export class ProductService {
             purchasePrice: 2500,
             sellingPrice: 3000,
             stock: 100,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJMuQlO1L1M70aIKcEG7Ppd69QdZooXKo-OUgbEDURpQ&s=10'
         },
         {
             id: 5,
@@ -54,11 +54,11 @@ export class ProductService {
             purchasePrice: 24000,
             sellingPrice: 28000,
             stock: 20,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6-Drf5nO3oQ5115_3CIOk0p3uTIk1xKlQbWinTu1QeQ&s=10'
         },
         {
             id: 6,
-            name: 'Susu Kental Manis Frisian Flag',
+            name: 'Susu Kental Manis',
             category: 'Minuman',
             description: 'Susu kental manis',
             purchasePrice: 9000,
@@ -68,43 +68,43 @@ export class ProductService {
         },
         {
             id: 7,
-            name: 'Tepung Terigu Segitiga Biru 1kg',
+            name: 'Tepung 1kg',
             category: 'Bahan Kue',
             description: 'Tepung terigu protein sedang',
             purchasePrice: 10000,
             sellingPrice: 13000,
             stock: 25,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs4QpB2WcTmRo7r4CkCT3DvryH9MRZsgnlJkcxh2rz_Q&s=10'
         },
         {
             id: 8,
-            name: 'Kopi Kapal Api Mix',
+            name: 'Kopi',
             category: 'Minuman',
             description: 'Kopi instan dengan gula',
             purchasePrice: 11000,
             sellingPrice: 14000,
             stock: 50,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4K-QrKO2SvaOJrMZb-yrk6k94AYUYuE9d_xkgegvdGw&s=10'
         },
         {
             id: 9,
-            name: 'Teh Celup Sariwangi',
+            name: 'Teh Celup',
             category: 'Minuman',
             description: 'Teh celup isi 25',
             purchasePrice: 5000,
             sellingPrice: 7000,
             stock: 35,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJEoo_lruA0pJWmn700Zjuxn9YpdpVAwSFKfMuYno9fg&s'
         },
         {
             id: 10,
-            name: 'Kecap Bango 600ml',
+            name: 'Kecap 600ml',
             category: 'Bumbu Dapur',
             description: 'Kecap manis kedelai hitam',
             purchasePrice: 20000,
             sellingPrice: 24000,
             stock: 15,
-            imageUrl: ''
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa2Y1I40z7fkLOg-16zJlPSJ_i4JVzsrlGo8jmnoSR-Q&s=10'
         }
     ];
 

@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { TransactionService } from '../../services/transaction.service';
 
@@ -20,7 +20,7 @@ export class DashboardPage {
   ) { }
 
   ngOnInit() {
-    this.loadData();
+    this.refreshData();
   }
 
   ionViewWillEnter() {

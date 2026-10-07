@@ -50,9 +50,14 @@ export class ProductDetailPage implements OnInit {
     }
   }
 
+  onImageError(event: any) {
+    event.target.src = 'assets/images/default-product.png';
+  }
+
   editProduct() {
     if (this.product) {
       this.router.navigate(['/product-form'], { queryParams: { id: this.product.id } });
     }
   }
 }
+
