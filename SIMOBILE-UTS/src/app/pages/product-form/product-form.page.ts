@@ -58,6 +58,7 @@ export class ProductFormPage implements OnInit {
   }
 
   onSubmit() {
+    const formData = this.productForm.value;
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
@@ -68,7 +69,7 @@ export class ProductFormPage implements OnInit {
     } else {
       this.productService.addProduct(this.productForm.value);
     }
-
+    
     this.router.navigate(['/tabs/products']);
   }
 }

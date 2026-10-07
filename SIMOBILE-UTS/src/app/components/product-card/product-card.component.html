@@ -1,6 +1,6 @@
 <ion-card class="product-card" (click)="onViewDetail()">
   <div class="image-container">
-    <ion-img [src]="defaultImage" alt="{{ product.name }}"></ion-img>
+    <ion-img [src]="defaultImage" alt="{{ product.name }}" (ionError)="onImageError()"></ion-img>
   </div>
   
   <ion-card-header>

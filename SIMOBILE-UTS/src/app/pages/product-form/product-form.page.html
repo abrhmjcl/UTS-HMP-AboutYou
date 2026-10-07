@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div [formGroup]="productForm">
     <ion-list lines="full">
 
       <ion-item>
@@ -66,10 +66,10 @@
     </ion-list>
 
     <div class="ion-margin-top ion-padding-top">
-      <ion-button expand="block" type="submit" color="primary" [disabled]="productForm.invalid">
+      <ion-button expand="block" color="primary" [disabled]="productForm.invalid" (click)="onSubmit()">
         <ion-icon name="save-outline" slot="start"></ion-icon>
         Simpan Produk
       </ion-button>
     </div>
-  </form>
+  </div>
 </ion-content>

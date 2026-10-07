@@ -17,7 +17,11 @@ export class DashboardPage {
   constructor(
     private productService: ProductService,
     private transactionService: TransactionService
-  ) {}
+  ) { }
+
+  ngOnInit() {
+    this.loadData();
+  }
 
   ionViewWillEnter() {
     this.refreshData();
